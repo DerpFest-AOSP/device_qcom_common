@@ -16,16 +16,10 @@ ifneq (,$(filter all, $(TARGET_COMMON_QTI_COMPONENTS)))
 TARGET_COMMON_QTI_COMPONENTS := \
     adreno \
     alarm \
-    audio \
     av \
-    bt \
-    display \
     gps \
     init \
-    media \
-    nfc \
     overlay \
-    perf \
     telephony \
     usb \
     vibrator \
@@ -52,27 +46,12 @@ ifneq (,$(filter alarm, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/vendor/alarm/qti-alarm.mk
 endif
 
-ifneq (,$(filter audio, $(TARGET_COMMON_QTI_COMPONENTS)))
-  include $(QCOM_COMMON_PATH)/system/audio/qti-audio.mk
-  include $(QCOM_COMMON_PATH)/vendor/audio/qti-audio.mk
-endif
-
 ifneq (,$(filter av, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/system/av/qti-av.mk
 endif
 
-ifneq (,$(filter bt, $(TARGET_COMMON_QTI_COMPONENTS)))
-  include $(QCOM_COMMON_PATH)/system/bt/qti-bt.mk
-  include $(QCOM_COMMON_PATH)/vendor/bt/qti-bt.mk
-endif
-
 ifneq (,$(filter charging, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
-endif
-
-ifneq (,$(filter display, $(TARGET_COMMON_QTI_COMPONENTS)))
-  include $(QCOM_COMMON_PATH)/system/display/qti-display.mk
-  include $(QCOM_COMMON_PATH)/vendor/display/qti-display.mk
 endif
 
 ifneq (,$(filter dsprpcd, $(TARGET_COMMON_QTI_COMPONENTS)))
@@ -101,33 +80,8 @@ ifneq (,$(filter keymaster, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
 endif
 
-ifneq (,$(filter media, $(TARGET_COMMON_QTI_COMPONENTS)))
-  ifeq ($(call is-board-platform-in-list,$(5_10_FAMILY) $(5_15_FAMILY)),true)
-    TARGET_MEDIA_COMPONENT_VARIANT ?= media
-  else ifeq ($(call is-board-platform-in-list,$(5_4_FAMILY)),true)
-    TARGET_MEDIA_COMPONENT_VARIANT ?= media-5.4
-  else
-    TARGET_MEDIA_COMPONENT_VARIANT ?= media-legacy
-  endif
-  include $(QCOM_COMMON_PATH)/vendor/$(TARGET_MEDIA_COMPONENT_VARIANT)/qti-$(TARGET_MEDIA_COMPONENT_VARIANT).mk
-endif
-
-ifneq (,$(filter nfc, $(TARGET_COMMON_QTI_COMPONENTS)))
-  include $(QCOM_COMMON_PATH)/vendor/nfc/qti-nfc.mk
-endif
-
 ifneq (,$(filter overlay, $(TARGET_COMMON_QTI_COMPONENTS)))
   include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
-endif
-
-ifneq (,$(filter perf, $(TARGET_COMMON_QTI_COMPONENTS)))
-  include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
-  ifeq ($(call is-board-platform-in-list,$(5_10_FAMILY) $(5_15_FAMILY)),true)
-    TARGET_PERF_COMPONENT_VARIANT ?= perf
-  else
-    TARGET_PERF_COMPONENT_VARIANT ?= perf-legacy
-  endif
-  include $(QCOM_COMMON_PATH)/vendor/$(TARGET_PERF_COMPONENT_VARIANT)/qti-$(TARGET_PERF_COMPONENT_VARIANT).mk
 endif
 
 ifneq (,$(filter qseecomd, $(TARGET_COMMON_QTI_COMPONENTS)))
